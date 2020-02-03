@@ -97,6 +97,10 @@ public function ManagerChain()
     return $this->hasOne(Chain::class,'manager_id');
 }   
 
+public function Products()
+{
+    return $this->hasMany(Product::class, 'shop_owner_id');
+} 
 
 
 }

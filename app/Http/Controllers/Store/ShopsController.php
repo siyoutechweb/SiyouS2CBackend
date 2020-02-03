@@ -22,8 +22,8 @@ class ShopsController extends Controller {
         $closure_hour=$request->input('closure_hour');
         $shop_owner = AuthController::me();
         $shop=$shop_owner->shop()->get();
-        if (empty($shop)) {
-            $shop= new shop();
+        if ($shop==[]) {
+            $shop= new shop(); 
             $shop->name=$name;
             $shop->adress=$adress;
             $shop->contact=$contact;

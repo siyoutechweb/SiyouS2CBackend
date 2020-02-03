@@ -40,10 +40,11 @@ $router->group(['prefix' => 'Chain','middleware' => 'role:ShopOwner'], function 
     $router->put('/Cachier', ['uses' => 'Store\ChainsController@assignCachierToChain']);
 });        
 
-$router->group(['prefix' => 'Products','middleware' => 'role:ShopOwner'], function () use ($router) {
+$router->group(['prefix' => 'Product','middleware' => 'role:ShopOwner'], function () use ($router) {
     $router->post('/', ['uses' => 'Products\ProductsController@addProduct']);
     $router->put('/', ['uses' => 'Products\ProductsController@updateProduct']);
-    $router->get('/', ['uses' => 'Products\ProductsController@getProductsList']);
+    $router->get('/List', ['uses' => 'Products\GetProductsController@getProductsList']);
+    $router->get('/', ['uses' => 'Products\GetProductsController@getProduct']);
 });
 
     
@@ -68,6 +69,7 @@ $router->group(['prefix' => 'Admin','middleware' => 'role:SuperAdmin'], function
     
 
 });
+
 
 
 

@@ -72,14 +72,7 @@ class ProductsController extends Controller
     }
 
 
-    public function getProductsList()
-    {
-        $shop_Owner = AuthController::me();
-        $productList = $shop_Owner->products()->with('category')->get();
-        return response()->json($productList, 200);
-    }
-
-
+    
     public function updateProduct(Request $request, $id)
     {
         $shop_owner = AuthController::me();
@@ -106,9 +99,10 @@ class ProductsController extends Controller
         return response()->json(["msg" => "ERROR !!"]);
     }
 
-    public function deleteProduct($id)
+    public function deleteProduct(Request $request)
     {
-        $product = Product::find($id);
+        $barcode=$request->input('barcode');
+        $product = Product::where('product_barcode',$barcode)->get();
         $product->delete();
         return response()->json(["msg" => "the Product has been deleted Successfully !!"]);
     }
