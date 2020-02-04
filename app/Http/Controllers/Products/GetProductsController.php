@@ -22,31 +22,34 @@ class GetProductsController extends Controller {
         $barcode = $request->input('barcode');
         $shop_Owner = AuthController::me();
 
-        if ($request->filled('supplier_id','category_id')) {
+        if ($request->filled('barcode')) {
+            $productsList = $shop_Owner->products()->where('product_barcode', $barcode)
+            ->simplePaginate();
+        }
+        elseif ($request->filled('supplier_id','category_id'))
+        {
             $productsList = $shop_Owner->products()
             ->where([["category_id",$category_id],["supplier_id",$supplier_id]])
-            ->get();
-        }
-        elseif ($request->filled('barcode'))
-        {
-            $productsList = $shop_Owner->products()->where('product_barcode', $barcode)
-            ->get();
+            ->simplePaginate();
         } 
       
         elseif ($request->filled('category_id')) {
-            $productsList = $shop_Owner->products()->where('category_id', $category_id)->get();
+            $productsList = $shop_Owner->products()
+            ->where('category_id', $category_id)->simplePaginate();
         }
         elseif ($request->filled('supplier_id')) {
-            $productsList = $shop_Owner->products()->where('supplier_id', $supplier_id)
-            ->get();
+            $productsList = $shop_Owner->products()
+            ->where('supplier_id', $supplier_id)->simplePaginate();
         }
-
- 
-        else $productsList = $shop_Owner->products()->get();
-
-        return response()->json($productsList, 200);
+        else 
+        { $productsList = $shop_Owner->products()->simplePaginate();}
         
-
+        $response = array();
+        $response['code']=1;
+        $response['msg']='';
+        $response['data']= $productsList;
+        
+        return response()->json($response, 200);
     }
 
 
@@ -70,6 +73,25 @@ class GetProductsController extends Controller {
         $response['msg']='1';
         $response['data']='product does not exist';
         return response()->json($response); 
+    }
+
+    public function generateBarcode()
+    {
+        $shop_Owner = AuthController::me();
+        $new_barcode = rand(pow(10, 12) - 1, pow(10, 13) - 1);
+        $products = $shop_Owner->products()->pluck('product_barcode')->toArray();
+       
+            while (in_array($new_barcode , $products, true)) 
+            {
+                $new_barcode = rand(pow(10, 12) - 1, pow(10, 13) - 1);
+            }
+        
+            $response = array();
+            $response['code'] = 1 ;
+            $response['msg'] = "";
+            $response['data'] = $new_barcode;
+            return response()->json($response); 
+
     }
  
 

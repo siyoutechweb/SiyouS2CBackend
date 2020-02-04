@@ -15,7 +15,7 @@ class Chain extends Model {
     // Relationships
     public function shop()
     {
-        return $this->belongsTo(shop::class, 'shop_id');
+        return $this->belongsTo(shop::class, 'store_id');
     }
 
     

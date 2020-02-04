@@ -15,6 +15,7 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+
 // $router->get('/key', function () {
 //     return \Illuminate\Support\Str::random(32);
 // });
@@ -31,11 +32,12 @@ $router->get('/ManagersList', ['uses' => 'User\UsersController@getManagersList']
 $router->get('/CachiersList', ['uses' => 'User\UsersController@getCachiersList']);
 $router->get('/Manager', ['uses' => 'User\UsersController@getManagerByEmail']);
 $router->get('/Cachier', ['uses' => 'User\UsersController@getCachierByEmail']);
-
+$router->get('/Store', ['uses' => 'Store\ShopsController@getStore']);
 
 $router->group(['prefix' => 'Chain','middleware' => 'role:ShopOwner'], function () use ($router) {
     $router->post('/', ['uses' => 'Store\ShopsController@addChain']);
-    $router->get('/', ['uses' => 'Store\ChainsController@getChainList']);
+    $router->get('/List', ['uses' => 'Store\ChainsController@getChainList']);
+    $router->get('/', ['uses' => 'Store\ChainsController@getChain']);
     $router->put('/Manager', ['uses' => 'Store\ChainsController@assignManagerToChain']);
     $router->put('/Cachier', ['uses' => 'Store\ChainsController@assignCachierToChain']);
 });        
@@ -45,6 +47,7 @@ $router->group(['prefix' => 'Product','middleware' => 'role:ShopOwner'], functio
     $router->put('/', ['uses' => 'Products\ProductsController@updateProduct']);
     $router->get('/List', ['uses' => 'Products\GetProductsController@getProductsList']);
     $router->get('/', ['uses' => 'Products\GetProductsController@getProduct']);
+    $router->get('/Barcode', ['uses' => 'Products\GetProductsController@generateBarcode']);
 });
 
     

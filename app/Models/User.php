@@ -102,5 +102,14 @@ public function Products()
     return $this->hasMany(Product::class, 'shop_owner_id');
 } 
 
+    // public function getShopsThroughOrder()
+    // {
+    //     return $this->hasManyThrough(User::class, Order::class, 'supplier_id', 'id', 'id', 'shop_owner_id');
+    // }
+
+    public function Category_id()
+    {
+        return $this->hasManyThrough( category::class, Product::class, 'category_id', 'id','id', 'shop_owner_id');
+    }
 
 }

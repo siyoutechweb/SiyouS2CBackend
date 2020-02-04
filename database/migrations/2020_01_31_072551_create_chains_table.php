@@ -10,13 +10,25 @@ class CreateChainsTable extends Migration
     {
         Schema::create('chains', function(Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->unsignedInteger('store_id')->nullable();
+            $table->string('chain_name');
             $table->string('adress');
-            $table->string('contact')->nullable();
-            $table->string('opening_hour')->nullable();
-            $table->string('closure_hour')->nullable();
-            $table->unsignedInteger('shop_id')->nullable();
-            $table->foreign('shop_id')->references('id')->on('shops');
+            $table->string('contacter')->nullable();
+            $table->string('chain_mobile')->nullable();
+            $table->string('chain_telephone')->nullable();
+            $table->string('chain_opening_hours')->nullable();
+            $table->string('chain_close_hours')->nullable();
+            $table->string('chain_trafic_line')->nullable();
+            $table->string('chain_img')->nullable();
+            $table->string('chain_lng')->nullable();
+            $table->string('chain_lat')->nullable();
+            $table->string('approved')->default('1');
+            $table->string('fattura_format')->nullable();
+            $table->integer('next_format_num')->nullable();
+            $table->string('chain_ip')->nullable();
+            $table->unsignedInteger('chain_district_id')->nullable();
+            $table->string('chain_district_info')->nullable();
+            $table->foreign('store_id')->references('id')->on('shops');
             $table->unsignedInteger('shop_owner_id');
             $table->foreign('shop_owner_id')->references('id')->on('users');
             $table->unsignedInteger('manager_id')->nullable();
