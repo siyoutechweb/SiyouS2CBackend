@@ -108,6 +108,11 @@ class ChainsController extends Controller {
 
 
 
+        $chain=chain::with('cachiers','manager')->where('shop_Owner_id',$shop_owner->id)->get();
+      
+        return  response()->json($chain, 200);
+    }
+
 
 
 }

@@ -15,7 +15,6 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
-
 // $router->get('/key', function () {
 //     return \Illuminate\Support\Str::random(32);
 // });
@@ -78,4 +77,7 @@ $router->group(['prefix' => 'Admin','middleware' => 'role:SuperAdmin'], function
 
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 257b016f0582a87fd36f6b1b65db5bfc7c79a98a

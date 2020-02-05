@@ -15,7 +15,6 @@ class Shop extends Model {
 
     // Relationships
 
-
     
 public function shopOwner()
 {
