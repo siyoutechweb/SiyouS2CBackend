@@ -4,6 +4,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model {
 
+    use softdelete;
+    
     protected $fillable = [];
 
     protected $dates = [];

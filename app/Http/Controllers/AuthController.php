@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Tymon\JWTAuth\Facades\JWTAuth;
 use App\Models\user;
+use App\Models\shop;
 
 class AuthController extends Controller
 {
@@ -30,6 +31,7 @@ class AuthController extends Controller
         if (!$token = Auth::guard('api')->attempt($credentials)) {
             return response()->json(['error' => 'Unauthorized'], 401);
         }
+        
 
         return $this->respondWithToken($token);
     }
@@ -46,6 +48,13 @@ class AuthController extends Controller
         JWTAuth::setToken($token);
         $user = JWTAuth::toUser($token);
         $userData = User::whereEmail($user['email'])->with('role')->first();
+        $shop=$user->shop()->value('id');
+        if(empty($shop))
+        {
+            $userData->store_id = null; 
+        }
+        $userData->store_id =$shop;
+        $userData->access_token =$token;
         return response()->json([
             'access_token' => $token,
             'token_type' => 'bearer',

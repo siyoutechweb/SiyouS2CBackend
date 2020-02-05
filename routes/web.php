@@ -48,6 +48,7 @@ $router->group(['prefix' => 'Product','middleware' => 'role:ShopOwner'], functio
     $router->get('/List', ['uses' => 'Products\GetProductsController@getProductsList']);
     $router->get('/', ['uses' => 'Products\GetProductsController@getProduct']);
     $router->get('/Barcode', ['uses' => 'Products\GetProductsController@generateBarcode']);
+    $router->delete('/', ['uses' => 'Products\ProductsController@deleteProduct']);
 });
 
     

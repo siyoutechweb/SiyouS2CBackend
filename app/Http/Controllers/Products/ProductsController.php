@@ -46,7 +46,7 @@ class ProductsController extends Controller
             $product->shop_id= $shop_id;
             $product->product_image='product image';
             // if ($request->hasFile('product_image')) {
-            //     $path = $request->file('product_image')->store('products', 'google');
+            //     $path = $request->file('product_image')->store('products', 'public');
             //     $fileUrl = Storage::url($path);
             //     $product->product_image = $fileUrl;
             // }
@@ -131,8 +131,20 @@ class ProductsController extends Controller
     {
         $barcode=$request->input('barcode');
         $product = Product::where('product_barcode',$barcode)->get();
-        $product->delete();
-        return response()->json(["msg" => "the Product has been deleted Successfully !!"]);
+        if($product->delete())
+        {
+            $response = array();
+            $response['code']=1;
+            $response['msg']="";
+            $response['data']='Product has been removed';
+            return response()->json($response);
+        }
+        $response = array();
+        $response['code']=1;
+        $response['msg']="1";
+        $response['data']='Error';
+        return response()->json($response);
+       
     }
 
 

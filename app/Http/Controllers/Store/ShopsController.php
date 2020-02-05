@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\shop;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 
 class ShopsController extends Controller {
 
@@ -33,7 +36,7 @@ class ShopsController extends Controller {
         $shop->store_is_selfsupport = $request->input('store_is_selfsupport');
         $shop->shop_owner_id = $shop_owner->id;
         // if ($request->hasFile('store_logo')) {
-            //     $path = $request->file('store_logo')->store('logo', 'google');
+            //     $path = $request->file('store_logo')->store('logos', 'public');
             //     $fileUrl = Storage::url($path);
             //     $product->store_logo = $fileUrl;
             // }

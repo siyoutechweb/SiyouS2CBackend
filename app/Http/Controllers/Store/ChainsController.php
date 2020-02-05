@@ -5,6 +5,9 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\shop;
 use App\Models\chain;
+use Illuminate\Http\File;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
 
 class ChainsController extends Controller {
 
@@ -35,7 +38,7 @@ class ChainsController extends Controller {
         $chain->chain_district_id = $request->input('chain_district_id');
         $chain->chain_district_info = $request->input('chain_district_info');
         // if ($request->hasFile('store_logo')) {
-            //     $path = $request->file('chain_img')->store('chains', 'google');
+            //     $path = $request->file('chain_img')->store('logos', 'public');
             //     $fileUrl = Storage::url($path);
             //     $product->chain_img = $fileUrl;
             // }
